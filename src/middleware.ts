@@ -18,10 +18,30 @@ export async function middleware(request: NextRequest) {
   if (isStaticAsset(pathname)) return NextResponse.next();
 
   // 2) Get token
-  const token: any = await getToken({
+  const secret = process.env.NEXTAUTH_SECRET || "6e33a5b76e66abd00cb61431131456f6";
+
+  let token: any = await getToken({
     req: request as any,
-    secret: process.env.NEXTAUTH_SECRET || "6e33a5b76e66abd00cb61431131456f6",
+    secret,
   });
+
+  // Fallback: Try secure cookie name explicitly (in case auto-detection fails on Vercel)
+  if (!token) {
+    token = await getToken({
+      req: request as any,
+      secret,
+      cookieName: "__Secure-next-auth.session-token",
+    });
+  }
+
+  // Fallback: Try non-secure cookie name explicitly
+  if (!token) {
+    token = await getToken({
+      req: request as any,
+      secret,
+      cookieName: "next-auth.session-token",
+    });
+  }
 
   const isAuthenticated = !!token;
   const role = token?.role; // 'admin' or 'superadmin'
