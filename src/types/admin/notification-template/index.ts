@@ -1,0 +1,1 @@
+export * as EmailNotificationTypes from "./email-template";

@@ -1,0 +1,1225 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Merriweather:wght@300;400;700&family=Montserrat:wght@300;400;700&family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Import google fonts for Invoice Templates */
+/* Chart text color variables for dark mode compatibility */
+:root {
+  --chart-text-color: #374151;
+}
+
+.dark {
+  --chart-text-color: #e5e7eb;
+}
+
+/* Custom Slider Styles - Primary Color & No Hover */
+.primary-slider .p-slider-range {
+  background-color: #2563EB !important;
+  /* blue-600 */
+}
+
+.primary-slider .p-slider-handle {
+  border: none !important;
+  background-color: #2563EB !important;
+  /* Solid Primary Blue */
+  width: 16px !important;
+  height: 16px !important;
+  margin-top: -8px !important;
+  transition: none !important;
+  /* Disable hover transition */
+}
+
+.primary-slider .p-slider-handle:hover,
+.primary-slider .p-slider-handle:focus {
+  transform: none !important;
+  /* Disable scale/transform on hover */
+  box-shadow: none !important;
+  /* Remove focus ring/shadow */
+  background-color: #2563EB !important;
+  border: none !important;
+}
+
+/* Dark mode overrides for slider */
+.dark .primary-slider .p-slider-range {
+  background-color: #3B82F6 !important;
+  /* blue-500 */
+}
+
+.dark .primary-slider .p-slider-handle {
+  background-color: #3B82F6 !important;
+  /* Solid Blue-500 in dark mode */
+}
+
+.dark .primary-slider .p-slider-handle:hover,
+.dark .primary-slider .p-slider-handle:focus {
+  background-color: #3B82F6 !important;
+}
+
+/* Toggle switch styles - kept as these are custom component styles */
+.toggle-checkbox:checked {
+  transform: translateX(100%);
+  border-color: #3b82f6;
+}
+
+.toggle-checkbox:checked+.toggle-label {
+  background-color: #3b82f6;
+}
+
+.toggle-label {
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Dark mode toggle styles */
+.dark .toggle-checkbox:checked+.toggle-label {
+  background-color: #60a5fa;
+}
+
+/* Custom Perfect Scrollbar Styles - kept as these are for a specific library */
+.ps {
+  position: relative;
+  overflow: hidden;
+}
+
+.ps__rail-x {
+  position: absolute;
+  bottom: 0;
+  height: 15px;
+  z-index: 1;
+}
+
+.ps__rail-y {
+  position: absolute;
+  right: 0;
+  width: 15px;
+  z-index: 1;
+}
+
+.ps__thumb-x {
+  background-color: #c1c1c1;
+  border-radius: 6px;
+  height: 6px;
+  bottom: 2px;
+  position: absolute;
+}
+
+.ps__thumb-y {
+  background-color: #c1c1c1;
+  border-radius: 6px;
+  width: 6px;
+  right: 2px;
+  position: absolute;
+}
+
+.ps__rail-x:hover>.ps__thumb-x,
+.ps__rail-x:focus>.ps__thumb-x,
+.ps__rail-x.ps--clicking .ps__thumb-x {
+  background-color: #a8a8a8;
+  height: 11px;
+}
+
+.ps__rail-y:hover>.ps__thumb-y,
+.ps__rail-y:focus>.ps__thumb-y,
+.ps__rail-y.ps--clicking .ps__thumb-y {
+  background-color: #a8a8a8;
+  width: 11px;
+}
+
+/* Dark mode scrollbar styles */
+.dark .ps__thumb-x,
+.dark .ps__thumb-y {
+  background-color: #4a5568;
+}
+
+.dark .ps__rail-x:hover>.ps__thumb-x,
+.dark .ps__rail-x:focus>.ps__thumb-x,
+.dark .ps__rail-x.ps--clicking .ps__thumb-x,
+.dark .ps__rail-y:hover>.ps__thumb-y,
+.dark .ps__rail-y:focus>.ps__thumb-y,
+.dark .ps__rail-y.ps--clicking .ps__thumb-y {
+  background-color: #718096;
+}
+
+/* Hide scrollbar when not needed */
+.ps--active-x>.ps__rail-x,
+.ps--active-y>.ps__rail-y {
+  display: block;
+  background-color: transparent;
+}
+
+.ps:hover>.ps__rail-x,
+.ps:hover>.ps__rail-y,
+.ps--focus>.ps__rail-x,
+.ps--focus>.ps__rail-y,
+.ps--scrolling-x>.ps__rail-x,
+.ps--scrolling-y>.ps__rail-y {
+  opacity: 0.6;
+}
+
+.ps .ps__rail-x.ps--clicking,
+.ps .ps__rail-y.ps--clicking {
+  background-color: transparent;
+  opacity: 0.9;
+}
+
+.ps .ps__rail-x:hover,
+.ps .ps__rail-y:hover {
+  background-color: transparent;
+  opacity: 0.6;
+}
+
+/* Custom scrollbar for sidebar */
+.sidebar-scrollbar .ps__rail-y {
+  width: 8px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-scrollbar .ps__thumb-y {
+  width: 6px;
+  background-color: rgba(156, 163, 175, 0.8);
+  border-radius: 4px;
+}
+
+.sidebar-scrollbar .ps__rail-y:hover>.ps__thumb-y,
+.sidebar-scrollbar .ps__rail-y:focus>.ps__thumb-y,
+.sidebar-scrollbar .ps__rail-y.ps--clicking .ps__thumb-y {
+  width: 8px;
+  background-color: rgba(156, 163, 175, 1);
+}
+
+.dark .sidebar-scrollbar .ps__thumb-y {
+  background-color: rgba(75, 85, 99, 0.8);
+}
+
+.dark .sidebar-scrollbar .ps__rail-y:hover>.ps__thumb-y,
+.dark .sidebar-scrollbar .ps__rail-y:focus>.ps__thumb-y,
+.dark .sidebar-scrollbar .ps__rail-y.ps--clicking .ps__thumb-y {
+  background-color: rgba(75, 85, 99, 1);
+}
+
+/* Hide native scrollbar and only show PerfectScrollbar */
+.sidebar-scrollbar {
+  overflow: hidden !important;
+}
+
+.sidebar-scrollbar .ps {
+  overflow: hidden !important;
+}
+
+/* Hide scrollbar for webkit browsers */
+.sidebar-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar-scrollbar .ps::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.sidebar-scrollbar {
+  scrollbar-width: none;
+}
+
+.sidebar-scrollbar .ps {
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar utility class */
+.scrollbar-hide {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari and Opera */
+}
+
+/* FullCalendar Shift Calendar Custom Styles */
+.shift-calendar-custom .fc-daygrid-day {
+  min-height: 120px;
+  padding: 8px;
+}
+
+.shift-calendar-custom .fc-daygrid-day-header {
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 16px 16px;
+  font-weight: 500;
+  color: #111827;
+  text-align: center;
+  min-width: 150px;
+}
+
+.shift-calendar-custom .fc-daygrid-day-frame {
+  border-right: 1px solid #e5e7eb;
+}
+
+.shift-calendar-custom .fc-daygrid-day-frame:last-child {
+  border-right: none;
+}
+
+.shift-calendar-custom .fc-daygrid-day-events {
+  min-height: 100px;
+}
+
+.shift-calendar-custom .fc-event {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 2px 0;
+}
+
+.shift-calendar-custom .fc-daygrid-event-dot {
+  display: none;
+}
+
+.shift-calendar-custom .fc-daygrid-day-number {
+  display: none;
+}
+
+.shift-calendar-custom .fc-col-header-cell {
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.shift-calendar-custom .fc-theme-standard td,
+.shift-calendar-custom .fc-theme-standard th {
+  border-color: #e5e7eb;
+}
+
+.shift-calendar-custom .fc-theme-standard .fc-scrollgrid {
+  border-color: #e5e7eb;
+}
+
+/* Ensure the calendar grid looks exactly like the original table */
+.shift-calendar-custom .fc-daygrid-body {
+  background: white;
+}
+
+.shift-calendar-custom .fc-daygrid-day:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.shift-calendar-custom .fc-daygrid-day:nth-child(odd) {
+  background-color: white;
+}
+
+
+/* Swiper Pagination Styles */
+.product-overview-swiper .swiper-pagination {
+  position: relative;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-overview-swiper .swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background-color: #d1d5db;
+  opacity: 1;
+  margin: 0 6px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.product-overview-swiper .swiper-pagination-bullet-active {
+  background-color: #007bff;
+  transform: scale(1.2);
+}
+
+.product-overview-swiper .swiper-pagination-bullet:hover {
+  background-color: #6b7280;
+  transform: scale(1.1);
+}
+
+/* Dynamic bullets styles */
+.product-overview-swiper .swiper-pagination-bullet-dynamic {
+  position: relative;
+  transform: scale(0.8);
+  opacity: 0.7;
+}
+
+.product-overview-swiper .swiper-pagination-bullet-dynamic-active {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.product-overview-swiper .swiper-pagination-bullet-dynamic-active-main {
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+.product-overview-swiper .swiper-pagination-bullet-dynamic-active-prev,
+.product-overview-swiper .swiper-pagination-bullet-dynamic-active-next {
+  transform: scale(0.9);
+  opacity: 0.8;
+}
+
+/* Dark mode pagination styles */
+.dark .product-overview-swiper .swiper-pagination-bullet {
+  background-color: #4b5563;
+}
+
+.dark .product-overview-swiper .swiper-pagination-bullet-active {
+  background-color: #007bff;
+}
+
+.dark .product-overview-swiper .swiper-pagination-bullet:hover {
+  background-color: #6b7280;
+}
+
+/* Force barcode/camera preview to fill container without letterboxing */
+.barcode-scanner-container video,
+.barcode-scanner-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block;
+}
+
+/* react-phone-number-input tweaks to fit 44px inputs and avoid overlay issues */
+.PhoneInput {
+  width: 100%;
+}
+
+.PhoneInputInput {
+  height: 44px;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.PhoneInputCountry {
+  margin-right: 8px;
+}
+
+.PhoneInputCountrySelect {
+  z-index: 50;
+  /* ensure dropdown renders above neighbors */
+}
+
+.PhoneInputCountryIcon {
+  width: 20px;
+  height: 15px;
+}
+
+/* Custom Country/State/City selects */
+.csc-select {
+  height: 44px;
+  width: 100%;
+  border-radius: 4px;
+  border: 0.6px solid #D8D9D9;
+  background-color: #FAFAFA;
+  padding-left: 12px;
+  padding-right: 12px;
+  font-family: var(--font-inter-tight, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji");
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 14px;
+  color: #111827;
+}
+
+.dark .csc-select {
+  border-color: #4B5563;
+  background-color: #1F2937;
+  color: #E5E7EB;
+}
+
+.csc-select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+  border-color: #2563EB;
+}
+
+
+/* react-date-range: make internal scrollbars thin like reference */
+.rdrCalendarWrapper * {
+  scrollbar-width: thin;
+  /* Firefox */
+  scrollbar-color: #9aa0a6 #f1f1f1;
+  /* thumb track */
+}
+
+.rdrCalendarWrapper *::-webkit-scrollbar {
+  width: 6px;
+}
+
+.rdrCalendarWrapper *::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.rdrCalendarWrapper *::-webkit-scrollbar-thumb {
+  background-color: #9aa0a6;
+  border-radius: 9999px;
+}
+
+.dark .rdrCalendarWrapper *::-webkit-scrollbar-track {
+  background: #1f2937;
+}
+
+.dark .rdrCalendarWrapper *::-webkit-scrollbar-thumb {
+  background-color: #6b7280;
+}
+
+/* react-date-range header: left align month/year pickers and shorten look */
+.rdrMonthAndYearWrapper {
+  justify-content: flex-start !important;
+  padding-top: 0 !important;
+}
+
+.rdrMonthAndYearPickers {
+  margin-left: 0 !important;
+}
+
+.rdrMonthAndYearPickers select {
+  text-align: left;
+  text-align-last: left;
+}
+
+/* Ensure navigation buttons are clickable */
+.rdrPrevButton,
+.rdrNextButton,
+.rdrPprevButton {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+/* Tighten spacing between trigger and calendar */
+.rdrCalendarWrapper {
+  margin-top: 0 !important;
+}
+
+.rdrMonths {
+  margin-top: 0 !important;
+}
+
+.rdrCalendarWrapper .rdrMonth {
+  padding-top: 0 !important;
+}
+
+/* Compact date-range picker (used in Holiday Management) */
+.date-range-compact .rdrCalendarWrapper {
+  font-size: 12px;
+  /* shrink overall scale */
+  background-color: transparent !important;
+  /* Let wrapper handle background */
+}
+
+.date-range-compact .rdrMonth {
+  width: 260px;
+  /* narrower month */
+}
+
+.date-range-compact .rdrMonthAndYearWrapper {
+  padding: 0px 0px !important;
+  background-color: transparent !important;
+  /* Let wrapper handle background */
+}
+
+.date-range-compact .rdrMonths,
+.date-range-compact .rdrMonth {
+  background-color: transparent !important;
+  /* Let wrapper handle background */
+}
+
+.date-range-compact .rdrDayNumber span {
+  width: 28px !important;
+  height: 28px !important;
+  line-height: 28px !important;
+}
+
+.date-range-compact .rdrWeekDays span {
+  font-size: 11px;
+}
+
+.date-range-compact .rdrPrevButton,
+.date-range-compact .rdrNextButton,
+.date-range-compact .rdrPprevButton {
+  transform: scale(0.9);
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  z-index: 10 !important;
+  position: relative !important;
+}
+
+/* Light mode hover states for date-range-compact */
+.date-range-compact .rdrDay:hover:not(.rdrDaySelected):not(.rdrDayStartEdge):not(.rdrDayEndEdge) .rdrDayNumber span {
+  background-color: transparent !important;
+  /* No background box */
+  color: #111827 !important;
+  /* Slightly darker text on hover */
+}
+
+/* Light mode selected date styling - no borders */
+.date-range-compact .rdrDay.rdrDaySelected .rdrDayNumber span,
+.date-range-compact .rdrDay.rdrStartEdge .rdrDayNumber span,
+.date-range-compact .rdrDay.rdrEndEdge .rdrDayNumber span {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.date-range-compact .rdrDay.rdrDaySelected,
+.date-range-compact .rdrDay.rdrStartEdge,
+.date-range-compact .rdrDay.rdrEndEdge {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Light mode passive/disabled dates */
+.date-range-compact .rdrDayDisabled .rdrDayNumber span,
+.date-range-compact .rdrDayPassive .rdrDayNumber span {
+  color: #9ca3af !important;
+  /* gray-400 - dimmed for passive dates */
+  opacity: 0.6 !important;
+  /* Make passive dates more visually distinct */
+}
+
+/* Hide small month label under grid for single date calendar */
+.single-date-compact .rdrMonthName {
+  display: none !important;
+}
+
+/* Compact sizing for single date picker */
+.single-date-compact .rdrCalendarWrapper {
+  font-size: 12px;
+  /* shrink scale */
+  background-color: transparent !important;
+  /* Let wrapper handle background */
+}
+
+.single-date-compact .rdrMonth {
+  width: 260px;
+  /* narrower */
+}
+
+.single-date-compact .rdrMonthAndYearWrapper {
+  padding: 4px 6px !important;
+  background-color: transparent !important;
+  /* Let wrapper handle background */
+}
+
+.single-date-compact .rdrMonths,
+.single-date-compact .rdrMonth {
+  background-color: transparent !important;
+  /* Let wrapper handle background */
+}
+
+.single-date-compact .rdrDayNumber span {
+  width: 28px !important;
+  height: 28px !important;
+  line-height: 28px !important;
+}
+
+/* Light mode hover states for date picker - subtle text color only */
+.single-date-compact .rdrDay:hover:not(.rdrDaySelected):not(.rdrDayStartEdge):not(.rdrDayEndEdge) .rdrDayNumber span {
+  background-color: transparent !important;
+  /* No background box */
+  color: #111827 !important;
+  /* Slightly darker text on hover */
+}
+
+.rdrDay:hover:not(.rdrDaySelected):not(.rdrDayStartEdge):not(.rdrDayEndEdge) .rdrDayNumber span {
+  background-color: transparent !important;
+  /* No background box */
+  color: #111827 !important;
+  /* Slightly darker text on hover */
+}
+
+/* Light mode selected date styling - no borders */
+.single-date-compact .rdrDay.rdrDaySelected .rdrDayNumber span,
+.single-date-compact .rdrDay.rdrStartEdge .rdrDayNumber span,
+.single-date-compact .rdrDay.rdrEndEdge .rdrDayNumber span {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.single-date-compact .rdrDay.rdrDaySelected,
+.single-date-compact .rdrDay.rdrStartEdge,
+.single-date-compact .rdrDay.rdrEndEdge {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.rdrDay.rdrDaySelected .rdrDayNumber span,
+.rdrDay.rdrStartEdge .rdrDayNumber span,
+.rdrDay.rdrEndEdge .rdrDayNumber span {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.rdrDay.rdrDaySelected,
+.rdrDay.rdrStartEdge,
+.rdrDay.rdrEndEdge {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Light mode passive/disabled dates */
+.rdrDayDisabled .rdrDayNumber span,
+.rdrDayPassive .rdrDayNumber span {
+  color: #9ca3af !important;
+  /* gray-400 - dimmed for passive dates */
+  opacity: 0.6 !important;
+  /* Make passive dates more visually distinct */
+}
+
+.single-date-compact .rdrDayDisabled .rdrDayNumber span,
+.single-date-compact .rdrDayPassive .rdrDayNumber span {
+  color: #9ca3af !important;
+  /* gray-400 */
+  opacity: 0.6 !important;
+  /* Make passive dates more visually distinct */
+}
+
+.single-date-compact .rdrDayDisabled .rdrDayNumber span,
+.single-date-compact .rdrDayPassive .rdrDayNumber span {
+  color: #9ca3af !important;
+  /* gray-400 */
+  opacity: 0.6 !important;
+  /* Make passive dates more visually distinct */
+}
+
+
+/* GENERIC LIGHT MODE theming for react-date-range (replacing default.css) */
+.rdrCalendarWrapper {
+  background-color: white;
+  color: #111827;
+}
+
+.rdrSelected,
+.rdrDaySelected,
+.rdrDayStartEdge,
+.rdrDayEndEdge {
+  background-color: #3b82f6 !important;
+  color: white !important;
+}
+
+.rdrDayInRange,
+.rdrDayInPreview {
+  background-color: #eff6ff !important;
+  /* blue-50 */
+  color: #3b82f6 !important;
+}
+
+.rdrDayPassive {
+  color: #d1d5db !important;
+}
+
+.rdrMonthAndYearPickers select {
+  color: #111827;
+  background-color: transparent;
+}
+
+/* Dark mode theming for react-date-range (generic) */
+.dark .rdrCalendarWrapper,
+.dark .rdrDateRangeWrapper,
+.dark .rdrDefinedRangesWrapper,
+.dark .rdrDateDisplayWrapper {
+  background-color: #1B1B1B !important;
+  color: white !important;
+}
+
+.dark .rdrMonthAndYearWrapper,
+.dark .rdrMonths,
+.dark .rdrMonth,
+.dark .rdrWeekDays,
+.dark .rdrDays,
+.dark .rdrDay {
+  background-color: transparent !important;
+}
+
+/* Dark mode for single-date-compact to match FormDropdown styling */
+.dark .single-date-compact .rdrCalendarWrapper {
+  background-color: transparent !important;
+  /* Let wrapper handle background */
+}
+
+.dark .single-date-compact .rdrMonthAndYearWrapper,
+.dark .single-date-compact .rdrMonths,
+.dark .single-date-compact .rdrMonth {
+  background-color: transparent !important;
+  /* Let wrapper handle background */
+}
+
+.dark .single-date-compact .rdrMonthAndYearPickers select {
+  background-color: #1B1B1B !important;
+  /* Match FormDropdown dark bg */
+  border-color: #616161 !important;
+  /* Match FormDropdown border */
+}
+
+.dark .single-date-compact .rdrMonthAndYearPickers select option {
+  background-color: #1B1B1B !important;
+}
+
+/* Dark mode for date grid - fix white background issue */
+.dark .single-date-compact .rdrDays,
+.dark .single-date-compact .rdrDaysWrapper {
+  background-color: #1B1B1B !important;
+  /* Match FormDropdown dark bg */
+}
+
+.dark .single-date-compact .rdrDay {
+  background-color: #1B1B1B !important;
+}
+
+/* Hover state - subtle text color change only, no box */
+.dark .single-date-compact .rdrDay:hover:not(.rdrDaySelected):not(.rdrDayStartEdge):not(.rdrDayEndEdge) {
+  background-color: transparent !important;
+  /* No background box */
+}
+
+.dark .single-date-compact .rdrDayNumber {
+  background-color: transparent !important;
+}
+
+.dark .single-date-compact .rdrDayNumber span {
+  background-color: transparent !important;
+}
+
+/* Hover effect - just text color change, no box */
+.dark .single-date-compact .rdrDay:hover:not(.rdrDaySelected):not(.rdrDayStartEdge):not(.rdrDayEndEdge) .rdrDayNumber span {
+  background-color: transparent !important;
+  /* No background box */
+  color: #ffffff !important;
+  /* Slightly brighter text on hover */
+}
+
+/* Selected date styling for single-date-compact - clean blue background, no borders */
+.dark .single-date-compact .rdrDay.rdrDaySelected .rdrDayNumber span,
+.dark .single-date-compact .rdrDay.rdrStartEdge .rdrDayNumber span,
+.dark .single-date-compact .rdrDay.rdrEndEdge .rdrDayNumber span {
+  background: #3b82f6 !important;
+  /* blue-500 */
+  color: #fff !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  /* Remove any unwanted shadows/underlines */
+  border: none !important;
+  /* Remove any borders */
+  outline: none !important;
+  /* Remove any outlines */
+}
+
+/* Remove borders from selected date cell */
+.dark .single-date-compact .rdrDay.rdrDaySelected,
+.dark .single-date-compact .rdrDay.rdrStartEdge,
+.dark .single-date-compact .rdrDay.rdrEndEdge {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Ensure selected date doesn't show hover background */
+.dark .single-date-compact .rdrDay.rdrDaySelected:hover,
+.dark .single-date-compact .rdrDay.rdrStartEdge:hover,
+.dark .single-date-compact .rdrDay.rdrEndEdge:hover {
+  background-color: #1B1B1B !important;
+  /* Keep original background */
+}
+
+.dark .single-date-compact .rdrDay.rdrDaySelected:hover .rdrDayNumber span,
+.dark .single-date-compact .rdrDay.rdrStartEdge:hover .rdrDayNumber span,
+.dark .single-date-compact .rdrDay.rdrEndEdge:hover .rdrDayNumber span {
+  background: #3b82f6 !important;
+  /* Keep blue on hover */
+  color: #fff !important;
+}
+
+/* Dark mode for date-range-compact to match FormDropdown styling */
+.dark .date-range-compact .rdrCalendarWrapper {
+  background-color: transparent !important;
+  /* Let wrapper handle background */
+}
+
+.dark .date-range-compact .rdrMonthAndYearWrapper,
+.dark .date-range-compact .rdrMonths,
+.dark .date-range-compact .rdrMonth {
+  background-color: transparent !important;
+  /* Let wrapper handle background */
+}
+
+.dark .date-range-compact .rdrMonthAndYearPickers select {
+  background-color: #1B1B1B !important;
+  /* Match FormDropdown dark bg */
+  border-color: #616161 !important;
+  /* Match FormDropdown border */
+}
+
+.dark .date-range-compact .rdrMonthAndYearPickers select option {
+  background-color: #1B1B1B !important;
+}
+
+/* Dark mode for date grid - fix white background issue */
+.dark .date-range-compact .rdrDays,
+.dark .date-range-compact .rdrDaysWrapper {
+  background-color: #1B1B1B !important;
+  /* Match FormDropdown dark bg */
+}
+
+.dark .date-range-compact .rdrDay {
+  background-color: #1B1B1B !important;
+}
+
+/* Hover state - subtle text color change only, no box */
+.dark .date-range-compact .rdrDay:hover:not(.rdrDaySelected):not(.rdrDayStartEdge):not(.rdrDayEndEdge) {
+  background-color: transparent !important;
+  /* No background box */
+}
+
+.dark .date-range-compact .rdrDayNumber {
+  background-color: transparent !important;
+}
+
+.dark .date-range-compact .rdrDayNumber span {
+  background-color: transparent !important;
+}
+
+/* Hover effect - just text color change, no box */
+.dark .date-range-compact .rdrDay:hover:not(.rdrDaySelected):not(.rdrDayStartEdge):not(.rdrDayEndEdge) .rdrDayNumber span {
+  background-color: transparent !important;
+  /* No background box */
+  color: #ffffff !important;
+  /* Slightly brighter text on hover */
+}
+
+/* Selected date styling for date-range-compact - clean blue background */
+.dark .date-range-compact .rdrDay.rdrDaySelected .rdrDayNumber span,
+.dark .date-range-compact .rdrDay.rdrStartEdge .rdrDayNumber span,
+.dark .date-range-compact .rdrDay.rdrEndEdge .rdrDayNumber span {
+  background: #3b82f6 !important;
+  /* blue-500 */
+  color: #fff !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  /* Remove any unwanted shadows/underlines */
+  border: none !important;
+  /* Remove any borders */
+  outline: none !important;
+  /* Remove any outlines */
+}
+
+/* Ensure selected date doesn't show hover background */
+.dark .date-range-compact .rdrDay.rdrDaySelected:hover,
+.dark .date-range-compact .rdrDay.rdrStartEdge:hover,
+.dark .date-range-compact .rdrDay.rdrEndEdge:hover {
+  background-color: #1B1B1B !important;
+  /* Keep original background */
+}
+
+.dark .date-range-compact .rdrDay.rdrDaySelected:hover .rdrDayNumber span,
+.dark .date-range-compact .rdrDay.rdrStartEdge:hover .rdrDayNumber span,
+.dark .date-range-compact .rdrDay.rdrEndEdge:hover .rdrDayNumber span {
+  background: #3b82f6 !important;
+  /* Keep blue on hover */
+  color: #fff !important;
+}
+
+/* Passive dates styling */
+.dark .date-range-compact .rdrDayDisabled .rdrDayNumber span,
+.dark .date-range-compact .rdrDayPassive .rdrDayNumber span {
+  color: #6b7280 !important;
+  /* gray-500 */
+  opacity: 0.5 !important;
+  /* Make passive dates more visually distinct */
+}
+
+/* Navigation buttons for date-range-compact */
+.dark .date-range-compact .rdrPrevButton,
+.dark .date-range-compact .rdrNextButton,
+.dark .date-range-compact .rdrPprevButton {
+  background: #2a2a2a !important;
+  /* Slightly lighter than header for visibility */
+  border: none !important;
+  /* No border */
+}
+
+.dark .date-range-compact .rdrPrevButton:hover,
+.dark .date-range-compact .rdrNextButton:hover,
+.dark .date-range-compact .rdrPprevButton:hover {
+  background: #353535 !important;
+  /* Subtle lighter on hover - dark mode compatible */
+  border: none !important;
+  /* No border */
+}
+
+/* Navigation button icons for date-range-compact */
+.dark .date-range-compact .rdrPrevButton i,
+.dark .date-range-compact .rdrPprevButton i {
+  border-color: transparent #ffffff transparent transparent !important;
+  /* White left arrow */
+}
+
+.dark .date-range-compact .rdrNextButton i {
+  border-color: transparent transparent transparent #ffffff !important;
+  /* White right arrow */
+}
+
+.dark .rdrWeekDays {
+  background-color: transparent !important;
+}
+
+.dark .rdrWeekDays span {
+  color: #9ca3af !important;
+  /* gray-400 */
+}
+
+/* Dark mode for date grid cells - fix white background */
+.dark .rdrDays,
+.dark .rdrDaysWrapper {
+  background-color: #111827 !important;
+  /* gray-900 */
+}
+
+.dark .rdrDay {
+  background-color: #111827 !important;
+}
+
+/* Hover state - subtle text color change only, no box */
+.dark .rdrDay:hover:not(.rdrDaySelected):not(.rdrDayStartEdge):not(.rdrDayEndEdge) {
+  background-color: transparent !important;
+  /* No background box */
+}
+
+.dark .rdrDayNumber {
+  background-color: transparent !important;
+}
+
+.dark .rdrDayNumber span {
+  color: #e5e7eb !important;
+  /* text */
+  background-color: transparent !important;
+}
+
+/* Hover effect - just text color change, no box */
+.dark .rdrDay:hover:not(.rdrDaySelected):not(.rdrDayStartEdge):not(.rdrDayEndEdge) .rdrDayNumber span {
+  background-color: transparent !important;
+  /* No background box */
+  color: #ffffff !important;
+  /* Slightly brighter text on hover */
+}
+
+.dark .rdrDayDisabled .rdrDayNumber span,
+.dark .rdrDayPassive .rdrDayNumber span {
+  color: #6b7280 !important;
+  /* gray-500 - dimmed for passive dates */
+  opacity: 0.5 !important;
+  /* Make passive dates more visually distinct */
+}
+
+/* Ensure passive dates are styled in single-date-compact */
+.dark .single-date-compact .rdrDayDisabled .rdrDayNumber span,
+.dark .single-date-compact .rdrDayPassive .rdrDayNumber span {
+  color: #6b7280 !important;
+  /* gray-500 */
+  opacity: 0.5 !important;
+  /* Make passive dates more visually distinct */
+}
+
+.dark .rdrPrevButton,
+.dark .rdrNextButton,
+.dark .rdrPprevButton {
+  background: #2a2a2a !important;
+  /* Slightly lighter than header for visibility */
+  border: none !important;
+  /* No border */
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  position: relative !important;
+}
+
+/* Ensure buttons are visible in single-date-compact */
+.dark .single-date-compact .rdrPrevButton,
+.dark .single-date-compact .rdrNextButton,
+.dark .single-date-compact .rdrPprevButton {
+  background: #2a2a2a !important;
+  /* Slightly lighter than header for visibility */
+  border: none !important;
+  /* No border */
+}
+
+/* Hover states for navigation buttons - dark mode compatible */
+.dark .rdrPrevButton:hover,
+.dark .rdrNextButton:hover,
+.dark .rdrPprevButton:hover {
+  background: #353535 !important;
+  /* Subtle lighter on hover - dark mode compatible */
+  border: none !important;
+  /* No border */
+}
+
+.dark .single-date-compact .rdrPrevButton:hover,
+.dark .single-date-compact .rdrNextButton:hover,
+.dark .single-date-compact .rdrPprevButton:hover {
+  background: #353535 !important;
+  /* Subtle lighter on hover - dark mode compatible */
+  border: none !important;
+  /* No border */
+}
+
+/* Navigation button icons - make white in dark mode */
+/* Prev button (left arrow) - border on right side matches pattern: top right bottom left */
+.dark .rdrPrevButton i,
+.dark .rdrPprevButton i {
+  border-color: transparent #ffffff transparent transparent !important;
+  /* White left arrow */
+}
+
+/* Next button (right arrow) - border on left side */
+.dark .rdrNextButton i {
+  border-color: transparent transparent transparent #ffffff !important;
+  /* White right arrow */
+}
+
+/* Ensure icons are white in single-date-compact */
+.dark .single-date-compact .rdrPrevButton i,
+.dark .single-date-compact .rdrPprevButton i {
+  border-color: transparent #ffffff transparent transparent !important;
+  /* White left arrow */
+}
+
+.dark .single-date-compact .rdrNextButton i {
+  border-color: transparent transparent transparent #ffffff !important;
+  /* White right arrow */
+}
+
+.dark .rdrDay.rdrDaySelected .rdrDayNumber span,
+.dark .rdrDay.rdrStartEdge .rdrDayNumber span,
+.dark .rdrDay.rdrEndEdge .rdrDayNumber span {
+  background: #3b82f6 !important;
+  /* blue-500 */
+  color: #fff !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  /* Remove any unwanted shadows/underlines */
+  border: none !important;
+  /* Remove any borders */
+  outline: none !important;
+  /* Remove any outlines */
+}
+
+/* Remove borders from selected date cell */
+.dark .rdrDay.rdrDaySelected,
+.dark .rdrDay.rdrStartEdge,
+.dark .rdrDay.rdrEndEdge {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Ensure selected date doesn't show hover effect */
+.dark .rdrDay.rdrDaySelected:hover,
+.dark .rdrDay.rdrStartEdge:hover,
+.dark .rdrDay.rdrEndEdge:hover {
+  background-color: transparent !important;
+}
+
+.dark .rdrDay.rdrDaySelected:hover .rdrDayNumber span,
+.dark .rdrDay.rdrStartEdge:hover .rdrDayNumber span,
+.dark .rdrDay.rdrEndEdge:hover .rdrDayNumber span {
+  background: #3b82f6 !important;
+  /* Keep blue on hover */
+  color: #fff !important;
+}
+
+/* Dark mode for month/year dropdown controls */
+.dark .rdrMonthAndYearPickers select {
+  background-color: #111827 !important;
+  /* gray-900 */
+  color: #e5e7eb !important;
+  /* gray-200 */
+  border-color: #374151 !important;
+  /* gray-700 */
+}
+
+.dark .rdrMonthAndYearPickers select:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5) !important;
+  /* blue ring */
+}
+
+.dark .rdrMonthAndYearPickers select option {
+  background-color: #111827 !important;
+  color: #e5e7eb !important;
+}
+
+/* Custom dropdown arrow for month/year selects */
+.rdrMonthAndYearPickers select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-right: 28px;
+  /* space for arrow */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 6px center;
+}
+
+.dark .rdrMonthAndYearPickers select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23E5E7EB' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+/* Override react-country-state-city input borders */
+.stdropdown-input.stsearch-box input,
+.stsearch-box input {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Modern Custom Scrollbar */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  /* Creates padding effect for thinner look */
+  background-clip: content-box;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8;
+}
+
+/* Dark Mode Scrollbar */
+.dark .custom-scrollbar {
+  scrollbar-color: #4b5563 transparent;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #4b5563;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #6b7280;
+}
