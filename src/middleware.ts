@@ -1,7 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
-import dotenv from "dotenv";
-dotenv.config();
 
 const AUTH_PAGES = ["/login", "/signup", "/forgotPassword"];
 const PROTECTED_PREFIXES = ["/admin", "/superadmin", "/cashier", "/manager"];
@@ -22,7 +20,7 @@ export async function middleware(request: NextRequest) {
   // 2) Get token
   const token: any = await getToken({
     req: request as any,
-    secret: process.env.NEXTAUTH_SECRET,
+    secret: process.env.NEXTAUTH_SECRET || "6e33a5b76e66abd00cb61431131456f6",
   });
 
   const isAuthenticated = !!token;
