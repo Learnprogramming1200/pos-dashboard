@@ -1,5 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
+import dotenv from "dotenv";
+dotenv.config();
 
 const AUTH_PAGES = ["/login", "/signup", "/forgotPassword"];
 const PROTECTED_PREFIXES = ["/admin", "/superadmin", "/cashier", "/manager"];
