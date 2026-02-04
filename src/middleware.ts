@@ -34,12 +34,30 @@ export async function middleware(request: NextRequest) {
     });
   }
 
+  // Fallback: Try secure authjs cookie name (NextAuth v5 default)
+  if (!token) {
+    token = await getToken({
+      req: request as any,
+      secret,
+      cookieName: "__Secure-authjs.session-token",
+    });
+  }
+
   // Fallback: Try non-secure cookie name explicitly
   if (!token) {
     token = await getToken({
       req: request as any,
       secret,
       cookieName: "next-auth.session-token",
+    });
+  }
+
+  // Fallback: Try non-secure authjs cookie name
+  if (!token) {
+    token = await getToken({
+      req: request as any,
+      secret,
+      cookieName: "authjs.session-token",
     });
   }
 
