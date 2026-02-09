@@ -1,0 +1,30 @@
+{
+  "extends": [
+    "next/core-web-vitals"
+  ],
+  "rules": {
+    // General rules
+    "no-console": "warn",
+    "no-debugger": "error",
+    "prefer-const": "error",
+    "no-var": "error",
+    "eqeqeq": ["error", "always"],
+    "curly": ["error", "all"],
+    "no-duplicate-imports": "error",
+    "no-unused-expressions": "error",
+    
+    // React specific rules
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "react/display-name": "off",
+    "react/no-unescaped-entities": "off",
+    
+    // Accessibility rules
+    "jsx-a11y/anchor-is-valid": "off"
+  },
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  }
+}
