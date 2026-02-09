@@ -3,7 +3,7 @@ import dotenv from 'dotenv/config';
 export const env = {
   // Backend API URL
 
-  BACKEND_URL: process.env.BACKEND_URL || 'https://pos-dashboard-2lt5.onrender.com/api/v2',
+  BACKEND_URL: process.env.BACKEND_URL || 'https://pos-ci9g.onrender.com/api/v2',
 
   // Client-side backend URL (for browser)
   CLIENT_BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL,
