@@ -177,5 +177,5 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     maxAge: 7 * 24 * 60 * 60, // 7 days
   },
   trustHost: true,
-  secret: process.env.NEXTAUTH_SECRET || "fallback-secret-for-development-only-change-in-production",
+  secret: process.env.NEXTAUTH_SECRET || "6e33a5b76e66abd00cb61431131456f6",
 })

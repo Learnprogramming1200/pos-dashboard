@@ -2,10 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
 const AUTH_PAGES = ["/login", "/signup", "/forgotPassword"];
-// Added /dashboard for unified operational roles
-const PROTECTED_PREFIXES = ["/dashboard", "/admin", "/superadmin", "/cashier", "/manager"];
-// Operational roles that can access /dashboard
-const OPERATIONAL_ROLES = ["admin", "manager", "cashier"];
+const PROTECTED_PREFIXES = ["/admin", "/superadmin", "/cashier", "/manager"];
 
 const isStaticAsset = (pathname: string) => {
   return /\.(jpg|jpeg|png|gif|svg|ico|css|js|json|woff|woff2|ttf|eot|webp|avif)$/i.test(pathname);
@@ -21,18 +18,55 @@ export async function middleware(request: NextRequest) {
   if (isStaticAsset(pathname)) return NextResponse.next();
 
   // 2) Get token
-  const token: any = await getToken({
+  const secret = process.env.NEXTAUTH_SECRET || "6e33a5b76e66abd00cb61431131456f6";
+
+  let token: any = await getToken({
     req: request as any,
-    secret: process.env.NEXTAUTH_SECRET,
+    secret,
   });
 
+  // Fallback: Try secure cookie name explicitly (in case auto-detection fails on Vercel)
+  if (!token) {
+    token = await getToken({
+      req: request as any,
+      secret,
+      cookieName: "__Secure-next-auth.session-token",
+    });
+  }
+
+  // Fallback: Try secure authjs cookie name (NextAuth v5 default)
+  if (!token) {
+    token = await getToken({
+      req: request as any,
+      secret,
+      cookieName: "__Secure-authjs.session-token",
+    });
+  }
+
+  // Fallback: Try non-secure cookie name explicitly
+  if (!token) {
+    token = await getToken({
+      req: request as any,
+      secret,
+      cookieName: "next-auth.session-token",
+    });
+  }
+
+  // Fallback: Try non-secure authjs cookie name
+  if (!token) {
+    token = await getToken({
+      req: request as any,
+      secret,
+      cookieName: "authjs.session-token",
+    });
+  }
+
   const isAuthenticated = !!token;
-  const role = token?.role;
+  const role = token?.role; // 'admin' or 'superadmin'
   const isActive = token?.isActive;
 
   const isAuthPage = startsWithAny(pathname, AUTH_PAGES);
   const isProtected = startsWithAny(pathname, PROTECTED_PREFIXES);
-  const isDashboard = pathname.startsWith("/dashboard");
   const isRoot = pathname === "/";
 
   // Helper: redirect function
@@ -45,17 +79,20 @@ export async function middleware(request: NextRequest) {
 
     if (!sessionLand) {
       // Dynamically determine target based on role
-      // Superadmin goes to /superadmin, others can go to /dashboard
       let target = null;
       if (role === "superadmin") {
         target = "/superadmin";
-      } else if (OPERATIONAL_ROLES.includes(role) && isActive) {
-        // Redirect to /dashboard for operational roles (new unified route)
-        target = "/dashboard";
+      } else if (role === "admin" && isActive) {
+        target = "/admin";
+      } else if (role === "manager" && isActive) {
+        target = "/manager";
+      } else if (role === "cashier" && isActive) {
+        target = "/cashier";
       }
 
       if (target) {
         const res = redirectTo(target);
+        // We still use sessionLand to allow the user to visit home page after initial mount
         res.cookies.set("sessionLand", "true", { path: "/" });
         return res;
       }
@@ -65,8 +102,9 @@ export async function middleware(request: NextRequest) {
   // --- B) Auth pages (login/signup) ---
   if (isAuthPage && isAuthenticated) {
     if (role === "superadmin") return redirectTo("/superadmin");
-    // Redirect operational roles to /dashboard
-    if (OPERATIONAL_ROLES.includes(role) && isActive) return redirectTo("/dashboard");
+    if (role === "admin" && isActive) return redirectTo("/admin");
+    if (role === "manager" && isActive) return redirectTo("/manager");
+    if (role === "cashier" && isActive) return redirectTo("/cashier");
     return redirectTo("/");
   }
 
@@ -78,33 +116,9 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(url);
     }
 
-    // --- C1) Unified /dashboard route (NEW) ---
-    // All operational roles (admin, manager, cashier) can access
-    // Superadmin can also access for testing purposes
-    // Page-level authorization is handled by PageGuard component
-    if (isDashboard) {
-      const canAccessDashboard =
-        role === "superadmin" ||
-        (OPERATIONAL_ROLES.includes(role) && isActive);
-
-      if (!canAccessDashboard) {
-        return redirectTo("/login");
-      }
-
-      // Set role cookie and proceed
-      // NOTE: No heavy permission checks here - that's done by PageGuard
-      const response = NextResponse.next();
-      if (role) {
-        response.cookies.set("pos-role", role, {
-          path: "/",
-          maxAge: 60 * 60 * 24
-        });
-      }
-      return response;
-    }
-
-    // --- C2) Legacy role-specific routes (kept for backward compatibility) ---
+    // Role-specific protection
     if (pathname.startsWith("/admin")) {
+      // Allow if admin (and active) OR if superadmin
       const canAccessAdmin = (role === "admin" && isActive) || role === "superadmin";
       if (!canAccessAdmin) {
         return redirectTo("/");
@@ -132,6 +146,10 @@ export async function middleware(request: NextRequest) {
     // --- D) Sync session data to response cookies ---
     const response = NextResponse.next();
 
+    // Note: pos-session cookie is set directly by the backend via Set-Cookie header
+    // during the client-side login API call
+
+    // Sync pos-role
     if (role) {
       response.cookies.set("pos-role", role, {
         path: "/",
