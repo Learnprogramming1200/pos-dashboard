@@ -29,11 +29,12 @@ export default function PaymentSuccessPage() {
           setIsProcessing(false);
         });
     } else {
+
       // Regular payment success, start countdown
       const timer = setInterval(() => {
         setCountdown((prev) => {
           if (prev <= 1) {
-            window.location.href = "/admin";
+            window.location.href = "/dashboard";
             return 0;
           }
           return prev - 1;
@@ -104,7 +105,7 @@ export default function PaymentSuccessPage() {
             </p>
           </div>
           <Link
-            href="/admin"
+            href="/dashboard"
             className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
           >
             Go to Dashboard
@@ -154,12 +155,12 @@ export default function PaymentSuccessPage() {
 
         <div className="space-y-4">
           <Link
-            href="/admin"
+            href="/dashboard"
             className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
           >
             Go to Dashboard
           </Link>
-          
+
           <p className="text-sm text-gray-500 dark:text-gray-400">
             Redirecting to dashboard in {countdown} seconds...
           </p>

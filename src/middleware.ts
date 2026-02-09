@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
 const AUTH_PAGES = ["/login", "/signup", "/forgotPassword"];
-const PROTECTED_PREFIXES = ["/admin", "/superadmin", "/cashier", "/manager"];
+const PROTECTED_PREFIXES = ["/admin", "/superadmin", "/cashier", "/manager", "/dashboard"];
 
 const isStaticAsset = (pathname: string) => {
   return /\.(jpg|jpeg|png|gif|svg|ico|css|js|json|woff|woff2|ttf|eot|webp|avif)$/i.test(pathname);
@@ -82,12 +82,8 @@ export async function middleware(request: NextRequest) {
       let target = null;
       if (role === "superadmin") {
         target = "/superadmin";
-      } else if (role === "admin" && isActive) {
-        target = "/admin";
-      } else if (role === "manager" && isActive) {
-        target = "/manager";
-      } else if (role === "cashier" && isActive) {
-        target = "/cashier";
+      } else if ((role === "admin" || role === "manager" || role === "cashier") && isActive) {
+        target = "/dashboard";
       }
 
       if (target) {
@@ -102,9 +98,7 @@ export async function middleware(request: NextRequest) {
   // --- B) Auth pages (login/signup) ---
   if (isAuthPage && isAuthenticated) {
     if (role === "superadmin") return redirectTo("/superadmin");
-    if (role === "admin" && isActive) return redirectTo("/admin");
-    if (role === "manager" && isActive) return redirectTo("/manager");
-    if (role === "cashier" && isActive) return redirectTo("/cashier");
+    if ((role === "admin" || role === "manager" || role === "cashier") && isActive) return redirectTo("/dashboard");
     return redirectTo("/");
   }
 
@@ -126,7 +120,7 @@ export async function middleware(request: NextRequest) {
     }
 
     if (pathname.startsWith("/superadmin") && role !== "superadmin") {
-      return role === "admin" && isActive ? redirectTo("/admin") : redirectTo("/");
+      return (role === "admin" || role === "manager" || role === "cashier") && isActive ? redirectTo("/dashboard") : redirectTo("/");
     }
 
     if (pathname.startsWith("/cashier")) {
